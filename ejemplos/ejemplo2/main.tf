@@ -20,7 +20,7 @@ resource "libvirt_volume" "disk-extra1" {
   name   = "server1-disk-extra1.qcow2"
   pool   = var.libvirt_pool_name
   format = "qcow2"
-  size   = 1 * 1024 * 1024 * 1024 # 1 GB en bytes
+  size   = 5 * 1024 * 1024 * 1024 # 1 GB en bytes
 }
 
 

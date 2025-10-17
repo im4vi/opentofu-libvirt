@@ -9,9 +9,9 @@ resource "libvirt_volume" "server1-disk" {
 
 # Disco cloud-init con configuración del sistema
 resource "libvirt_cloudinit_disk" "server1-cloudinit" {
-  name           = "server1-cloudinit.iso"
-  pool           = var.libvirt_pool_name
-  user_data      = join("\n", ["#cloud-config", yamlencode(local.merged)])
+  name      = "server1-cloudinit.iso"
+  pool      = var.libvirt_pool_name
+  user_data = join("\n", ["#cloud-config", yamlencode(local.merged)])
   network_config = ""
 }
 
@@ -21,12 +21,14 @@ resource "libvirt_domain" "server1" {
   memory = 1024
   vcpu   = 2
 
-
   network_interface {
     network_name   = "default"
     wait_for_lease = true
   }
-  disk { volume_id = libvirt_volume.server1-disk.id }
+
+  disk {
+    volume_id = libvirt_volume.server1-disk.id
+  }
+
   cloudinit = libvirt_cloudinit_disk.server1-cloudinit.id
 }
-
